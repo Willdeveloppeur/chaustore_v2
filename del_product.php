@@ -1,0 +1,2 @@
+<?php
+$delProduct = "DELETE "
