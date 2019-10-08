@@ -2,9 +2,9 @@
 <?php
 //requête SQL:
 $sql2 = 'select product_id, size_id, stock from stock ;'; 
-
+$stock = "SELECT sum(stock) FROM stock WHERE product_id = id from product;";
 //exécution de la requête:
-$request2 = mysqli_query($conn, $sql2);
+$request2 = mysqli_query($conn, $stock);
 
 echo "<table id='tab'>";
 
@@ -12,8 +12,6 @@ echo "<table id='tab'>";
 while ($result2 = mysqli_fetch_array($request2)) {
     echo "
        <tr>
-           <th>{$result2['product_id']}</th>
-           <th>{$result2['size_id']}</th>
            <th>{$result2['stock']}</th>
        </tr>";
 }

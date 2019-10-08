@@ -20,7 +20,7 @@
             $deleteProd = $_POST['del_product'];
             $deleteStock = "DELETE stock FROM stock WHERE product_id = ('$deleteProd');";
             $req = "DELETE FROM product where id=('$deleteProd');";
-            
+
             mysqli_query($conn, $deleteStock);
             mysqli_query($conn, $req);
         }
@@ -42,11 +42,13 @@
 INNER JOIN brand ON product.brand_id = brand.id 
 INNER JOIN color ON product.color_id = color.id 
 INNER JOIN category ON product.category_id = category.id
-ORDER BY product.id ";
-        $stock = "SELECT sum(stock) FROM stock WHERE product_id = id from product;";
+ORDER BY id";
+        $prodId = "SELECT id from product";
+        $stock = "SELECT product.name, sum(stock) FROM stock WHERE stock.product_id = product.id";
+        $stock2 ="SELECT product.name, sum(stock) from stock inner join product on stock.product_id = product.id group by id";
         //exécution de la requête:
         $request = mysqli_query($conn, $sql);
-        $request2 = mysqli_query($conn, $stock);
+        $request2 = mysqli_query($conn, $stock2);
         echo "<table id='tab'>
 <thead>
 						<tr>
@@ -57,12 +59,14 @@ ORDER BY product.id ";
 							<th>Marque</th>
 							<th>Prix</th>
                             <th>Genre</th>
-                            <th>size</th>
+                            <th>Stock</th>
 							
 						</tr>";
 
         //affichage des données:
         while ($result = mysqli_fetch_array($request)) {
+            $result2 = mysqli_fetch_array($request2);
+        
             echo "
        <tr>
            <td>{$result['id']}</td>
@@ -72,10 +76,11 @@ ORDER BY product.id ";
            <td>{$result['brand']}</td>
            <td>{$result['price']}</td>
            <td>{$result['gender']}</td>
-           <td></td>
+           <td>{$result2['sum(stock)']}</td>
        </tr>";
         }
-       
+        
+
         ?>
 
 
