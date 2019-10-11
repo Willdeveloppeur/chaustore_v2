@@ -11,8 +11,6 @@
 </head>
 
 <body>
-    <h1> Gestionnaire Chaustore</h1>
-    <button type="button" value="Retour" action="simplon_chaustore_v2.php">Retour</button>
     <div id='delete'>
 
         <?php
@@ -44,24 +42,25 @@ INNER JOIN color ON product.color_id = color.id
 INNER JOIN category ON product.category_id = category.id
 ORDER BY id";
         $prodId = "SELECT id from product";
-        $stock = "SELECT product.name, sum(stock) FROM stock WHERE stock.product_id = product.id";
-        $stock2 ="SELECT product.name, sum(stock) from stock inner join product on stock.product_id = product.id group by id";
+        $stock ="SELECT product.name, sum(stock) from stock inner join product on stock.product_id = product.id group by id";
         //exécution de la requête:
         $request = mysqli_query($conn, $sql);
-        $request2 = mysqli_query($conn, $stock2);
+        $request2 = mysqli_query($conn, $stock);
         echo "<table id='tab'>
 <thead>
 						<tr>
 							<th>n°</th>
-							<th>Nom du produit</th>
-							<th>Couleur</th>
-							<th>Categorie</th>
-							<th>Marque</th>
-							<th>Prix</th>
-                            <th>Genre</th>
-                            <th>Stock</th>
+							<th id='name'>Nom du produit</th>
+							<th id='color'>Couleur</th>
+							<th id='category'>Categorie</th>
+							<th id='brand'>Marque</th>
+							<th id='price'>Prix</th>
+                            <th id='genre'>Genre</th>
+                            <th id='stock'>Stock</th>
+                            <th id='modify'>Edit</th>
 							
-						</tr>";
+                        </tr>"
+                        ;
 
         //affichage des données:
         while ($result = mysqli_fetch_array($request)) {
@@ -77,6 +76,7 @@ ORDER BY id";
            <td>{$result['price']}</td>
            <td>{$result['gender']}</td>
            <td>{$result2['sum(stock)']}</td>
+           <td><img id='edit' src='edit.jpg'></td>
        </tr>";
         }
         

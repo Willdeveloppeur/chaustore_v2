@@ -12,13 +12,8 @@
 
 <body>
     <h1> Gestionnaire Chaustore</h1>
-    <a href="stock_manage.php"><input type="button" value="Stock" /></a>
-    <br/>
-    <a href="brand_manage.php"><input type="button" value="Brand" /></a>
-    <a href="cat_manage.php"><input type="button" value="Category" /></a>
-    <a href="color_manage.php"><input type="button" value="Color" /></a>
-    <a href="product.php"><input type="button" value="Product" /></a>
-    <a href="size_manage.php"><input type="button" value="Size" /></a>
+    <a href="manage.php"><input type="button" value="Manage Chaustore" /></a>
+  
     
 
 
